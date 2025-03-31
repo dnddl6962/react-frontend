@@ -1,33 +1,12 @@
-import { Box, Grid, HStack, Skeleton, SkeletonText } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import Room from '../components/Room';
-import RoomSkeleton from '../components/RoomSkeleton';
+import { Grid } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { getRooms } from '../api';
-
-interface IPhoto {
-  pk: string;
-  file: string;
-  description: string;
-}
-
-interface IRoom {
-  pk: number;
-  name: string;
-  country: string;
-  city: string;
-  price: number;
-  rating: number;
-  is_owner: boolean;
-  photos: IPhoto[];
-}
+import Room from '../components/Room';
+import RoomSkeleton from '../components/RoomSkeleton';
+import { IRoomList } from '../types.d';
 
 export default function Home() {
-  const { isLoading, data } = useQuery<IRoom[]>({
-    queryKey: ['rooms'],
-    queryFn: getRooms,
-  });
-
+  const { isLoading, data } = useQuery<IRoomList[]>({ queryKey: ['rooms'], queryFn: getRooms });
   return (
     <Grid
       mt={10}
