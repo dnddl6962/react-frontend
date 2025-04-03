@@ -13,7 +13,7 @@ import {
   InputLeftElement,
 } from '@chakra-ui/react';
 import { FaUserNinja, FaKey, FaEnvelope, FaUserSecret } from 'react-icons/fa6';
-import SocialLogIn from './socialLogIn';
+import SocialLogIn from './SocialLogin';
 
 interface SignUpModalProps {
   isOpen: boolean;

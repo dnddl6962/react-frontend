@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Container,
   Grid,
   GridItem,
   Heading,
@@ -26,7 +27,7 @@ export default function RoomDetail() {
 
   const {
     data: reviewsData,
-    isLoading: isReviewsLoading,
+    // isLoading: isReviewsLoading,
     isError: isReviewsError,
   } = useQuery<IReview[]>({
     queryKey: ['rooms', roomPk, 'reviews'],
@@ -97,7 +98,7 @@ export default function RoomDetail() {
 
       {/* 평점 및 리뷰 수 */}
       <Box mt={10}>
-        <Heading fontSize="2xl">
+        <Heading mt={5} fontSize="2xl">
           <HStack>
             <FaStar />
             <Text>{data?.rating}</Text>
@@ -109,6 +110,25 @@ export default function RoomDetail() {
             </Text>
           </HStack>
         </Heading>
+        <Container mt={16} maxW="container.lg" marginX="none">
+          <Grid gap={10} templateColumns={'1fr 1fr'}>
+            {reviewsData?.map((review, index) => (
+              <VStack alignItems={'flex-start'} key={index}>
+                <HStack>
+                  <Avatar name={review.user.name} src={review.user.avatar} size="md" />
+                  <VStack spacing={0} alignItems={'flex-start'}>
+                    <Heading fontSize={'md'}>{review.user.name}</Heading>
+                    <HStack spacing={1}>
+                      <FaStar size="12px" />
+                      <Text>{review.rating}</Text>
+                    </HStack>
+                  </VStack>
+                </HStack>
+                <Text>{review.payload}</Text>
+              </VStack>
+            ))}
+          </Grid>
+        </Container>
       </Box>
     </Box>
   );
